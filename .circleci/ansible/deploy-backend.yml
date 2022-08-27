@@ -2,6 +2,7 @@
 
 - name: "configuration play." 
   remote_user: ubuntu
+  hosts: web
   become: true
   become_method: sudo
   become_user: root  
