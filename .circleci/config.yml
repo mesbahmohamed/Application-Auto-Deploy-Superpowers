@@ -220,7 +220,7 @@ jobs:
       - destroy-environment
   run-migrations:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - install_awscli
@@ -230,9 +230,6 @@ jobs:
             cd backend
             npm install
             npm audit fix --force --audit-level=critical
-            npm audit fix
-            npm run migrations > migrations_dump.txt
-            npm audit fix
             npm run migrations > migrations_dump.txt
 
       - run:
