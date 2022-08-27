@@ -220,7 +220,7 @@ jobs:
       - destroy-environment
   run-migrations:
     docker:
-      - image: node:13.8.0
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - install_awscli
