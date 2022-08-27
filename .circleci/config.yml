@@ -157,6 +157,7 @@ jobs:
       - run:
           name: Ensure front-end infrastructure exist
           command: |
+            aws configure set aws_session_token ${AWS_SESSION_TOKEN}
             aws cloudformation deploy \
               --template-file .circleci/files/frontend.yml \
               --tags project=udapeople \
@@ -192,3 +193,6 @@ workflows:
           requires: [build-frontend]
       - deploy-infrastructure:
           requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+          filters:
+            branches:
+              only: [master]
