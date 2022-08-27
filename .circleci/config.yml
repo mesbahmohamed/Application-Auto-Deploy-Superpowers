@@ -149,6 +149,7 @@ jobs:
       - run:
           name: Ensure back-end infrastructure exists
           command: |
+            aws configure set aws_session_token ${AWS_SESSION_TOKEN}
             aws cloudformation deploy \
               --template-file .circleci/files/backend.yml \
               --tags project=udapeople \
