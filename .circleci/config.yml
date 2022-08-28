@@ -65,6 +65,7 @@ jobs:
           command: |
             cd backend
             npm install
+            npm audit fix
       - save_cache:
           key: backend-build
           paths:
@@ -83,6 +84,7 @@ jobs:
           command: |
             cd frontend
             npm install
+            npm audit fix
       - save_cache:
           key: frontend-build
           paths:
