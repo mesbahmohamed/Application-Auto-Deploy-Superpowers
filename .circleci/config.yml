@@ -327,7 +327,7 @@ jobs:
             echo "API_URL=http://${BACKEND_PUBLIC_IP}:3030" 
             export API_URL="http://${BACKEND_PUBLIC_IP}:3030"
             echo "${API_URL}"
-            if curl -s $API_URL/api/status | grep "ok"
+            if curl -s $API_URL/api/status 
             then
                 exit 0
             else
@@ -343,8 +343,8 @@ jobs:
             else
                 exit 1
             fi
-      - destroy-environment
-      - revert-migrations
+      #- destroy-environment
+      #- revert-migrations
 
 workflows:
   default:
