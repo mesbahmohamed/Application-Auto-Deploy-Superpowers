@@ -1,10 +1,6 @@
 Description: >
   UdaPeople backend stack.
 
-Parameters:
-  WorkflowId:
-    Description: Unique identifier.
-    Type: String
 
 Resources:
   InstanceSecurityGroup:
