@@ -226,7 +226,8 @@ jobs:
           name: Configuring server
           command: |
             cd .circleci/ansible/
-            ansible-playbook configure-server.yml
+            cat 
+            ansible-playbook -i inventory.txt configure-server.yml
       - destroy-environment:
           workflow_id: '${CIRCLE_WORKFLOW_ID:0:7}'
 
