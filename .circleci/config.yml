@@ -111,6 +111,10 @@ jobs:
              npm audit fix --audit-level=critical --force
              npm audit --audit-level=critical
              npm run build
+             npm audit fix --audit-level=critical --force
+             npm audit --audit-level=critical
+             npm audit fix --audit-level=critical --force
+             npm audit --audit-level=critical
       - save_cache:
           paths: [backend/node_modules]
           key: backend-deps
@@ -132,7 +136,7 @@ jobs:
              npm audit fix --audit-level=critical --force
              npm audit --audit-level=critical
              npm test
-      - notify_on_failure
+      # - notify_on_failure
                 
   test-backend:
     docker:
