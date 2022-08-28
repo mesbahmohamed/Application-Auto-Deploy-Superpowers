@@ -272,7 +272,7 @@ jobs:
           at: ./infra/ansible/
       - add_ssh_keys:
           fingerprints:
-            - 'b5:f4:85:77:e1:ad:c2:fb:78:ef:49:cd:c8:60:41:e5'
+            - 'be:60:c7:2b:6b:6a:19:82:62:8c:b9:36:59:7f:2e:63'
       - install-dependencies
       - run:
           name: Packaging backend
@@ -284,7 +284,7 @@ jobs:
       - run:
           name: Deploying backend
           command: |
-            cd infra/ansible/
+            cd .circleci/ansible/
             ansible-playbook deploy-backend.yml
       - destroy-environment:
           workflow_id: '${CIRCLE_WORKFLOW_ID:0:7}'
