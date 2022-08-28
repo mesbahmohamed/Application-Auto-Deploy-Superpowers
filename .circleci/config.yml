@@ -276,7 +276,7 @@ jobs:
 
   deploy-backend:
     docker:
-      - image: python:3.9.1-alpine3.12
+      - image: cimg/base:stable
     steps:
       - checkout
       - install_awscli
