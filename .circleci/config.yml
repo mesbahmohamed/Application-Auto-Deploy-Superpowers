@@ -279,16 +279,21 @@ jobs:
       - image: python:3.9.1-alpine3.12
     steps:
       - checkout
+      - install_awscli
+      - install_ansible
+      - install_nodejs
       - add_ssh_keys:
           fingerprints:
             - "be:60:c7:2b:6b:6a:19:82:62:8c:b9:36:59:7f:2e:63"
       - restore_cache:
           keys: [backend-build]
       - attach_workspace:
-          at: /tmp/artifacts
+          at: ~/
       - run:
           name: Install dependencies
           command: |
+            cd backend
+            npm install
             apk update
             apk add --update ansible aws-cli openssh-client tar
       - run:
@@ -298,8 +303,11 @@ jobs:
       - run:
           name: Deploy backend
           command: |
+            export TYPEORM_MIGRATIONS_DIR=./migrations
+            export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
+            export TYPEORM_MIGRATIONS=./migrations/*.ts
             cd .circleci/ansible
-            export ANSIBLE_HOST_KEY_CHECKING=False
+            cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
  
   # deploy-backend:
