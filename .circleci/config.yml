@@ -236,12 +236,12 @@ jobs:
               #   --tags project=udapeople \
               #   --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               #   --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
-            aws configure set aws_session_token ${AWS_SESSION_TOKEN}
-            aws cloudformation deploy \
-              --template-file .circleci/files/backend.yml \
-              --tags project=udapeople \
-              --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
-              --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
+              aws configure set aws_session_token ${AWS_SESSION_TOKEN}
+              aws cloudformation deploy \
+                --template-file .circleci/files/backend.yml \
+                --tags project=udapeople \
+                --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
+                --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
       - run:
           name: Ensure front-end infrastructure exists
           command: |
@@ -290,7 +290,6 @@ jobs:
           command: |
             cd .circleci/ansible
             cat inventory.txt
-
             ansible-playbook -i inventory.txt configure-server.yml
       - destroy-environment
       # - failure
