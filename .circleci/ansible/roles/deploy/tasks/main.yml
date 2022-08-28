@@ -16,31 +16,44 @@
 #     cd /home/ubuntu
 #     pm2 start npm --name backend -- start
 
+- name: Create app dir
+  become: yes
+  file:
+    path: /home/ubuntu/app
+    state: directory
 
----
-- name: Upgrade npm
-  become: true
-  shell: |
-    npm install -g npm@latest
-- name: Copy compiled files
+- name: "Copy backend build folder to EC2"
+  become: yes
   unarchive:
-    src: /root/project/backend.tar.gz
-    dest: /home/ubuntu/
+    src: /tmp/workspace/backend.tar.gz
+    dest: /home/ubuntu/app/
+    owner: ubuntu
 
-- name: Build backend
-  ignore_errors: yes
+- name: "Copy package.json to EC2"
+  become: yes
+  copy:
+    src: /tmp/workspace/package.json
+    dest: /home/ubuntu/app/
+    owner: ubuntu
+
+- name: "NPM Install"
+  shell:
+    cmd: npm install --production
+    chdir: /home/ubuntu/app
+
+- name: "Start backend with pm2"
+  become: yes
   shell: |
-    cd /home/ubuntu/backend
-    npm i
-    npm run build
-- name: Stop and delete already running server
-  ignore_errors: yes
-  shell: |
-    pm2 stop backend
-    pm2 delete backend
-- name: Start server
-  become: true
-  shell: |
-    cd /home/ubuntu/backend
-    pm2 start npm --name backend -- start
-    pm2 ls
+    cd /home/ubuntu/app
+    pm2 start main.js --name app
+  environment:
+    ENVIRONMENT: production
+    TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
+    TYPEORM_MIGRATIONS_DIR: "./migrations"
+    TYPEORM_MIGRATIONS: "./migrations/*.js"
+    TYPEORM_ENTITIES: "./modules/domain/**/*.entity.js"
+    TYPEORM_HOST: "{{ lookup('env', 'TYPEORM_HOST') }}"
+    TYPEORM_PORT: "{{ lookup('env', 'TYPEORM_PORT') }}"
+    TYPEORM_USERNAME: "{{ lookup('env', 'TYPEORM_USERNAME') }}"
+    TYPEORM_PASSWORD: "{{ lookup('env', 'TYPEORM_PASSWORD') }}"
+    TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE') }}"

@@ -292,37 +292,46 @@ jobs:
       - revert-migrations
   deploy-backend:
     docker:
-      # Docker image that supports Ansible
+      # Docker image here that supports Ansible
       - image: python:3.7-alpine3.11
     steps:
+      # Checkout code from git
       - checkout
+      # Add ssh keys with fingerprint
       - add_ssh_keys:
-          fingerprints: 
-            - "be:60:c7:2b:6b:6a:19:82:62:8c:b9:36:59:7f:2e:63"
+          fingerprints: ['be:60:c7:2b:6b:6a:19:82:62:8c:b9:36:59:7f:2e:63']
+      # attach workspace
       - attach_workspace:
-          at: .
+          at: ~/
+      - attach_workspace:
+          at: /tmp/workspace
       - restore_cache:
-          keys: [backend-build-cache]
+          key: backend-build
       - run:
           name: Install dependencies
           command: |
-            apk add --update ansible
-            apk add --no-cache curl
-            apk add --no-cache openssh-client
-            apk add --no-cache --upgrade bash
+            # your code here
+            apk add --update ansible openssh-client tar gzip curl nodejs npm
             pip install awscli
-      - create-dotenv-file
       - run:
           name: Deploy backend
+          no_output_timeout: 20m
           command: |
-            pwd
-            tar czf backend.tar.gz backend/
-            export ANSIBLE_HOST_KEY_CHECKING=false
+            # your code here
+            cd backend
+            npm i
+            npm run build
+            cd ..
+            # Zip the directory
+            tar -C backend -czvf artifact.tar.gz .
             cd .circleci/ansible
+            echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
-            ansible-playbook -i inventory.txt deploy-backend.yml -vvv
-      - destroy-environment
+            export ANSIBLE_HOST_KEY_CHECKING=False
+            ansible-playbook -i inventory.txt deploy-backend.yml
+      # Here's where you will add some code to rollback on failure 
       - revert-migrations
+      - destroy-environment 
   # deploy-backend:
   #   docker:
   #     - image: cimg/base:stable
