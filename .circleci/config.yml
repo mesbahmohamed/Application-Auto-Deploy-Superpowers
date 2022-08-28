@@ -140,6 +140,11 @@ jobs:
           command: |
             cd backend
             npm audit --audit-level=critical
+            npm audit fix
+            npm audit fix --force
+            npm audit fix --force --audit-level=critical
+            npm audit fix --force --audit-level=critical
+            npm audit --audit-level=critical            
 
   scan-frontend:
     docker:
@@ -154,7 +159,11 @@ jobs:
           command: |
             cd frontend
             npm audit --audit-level=critical
-
+            npm audit fix
+            npm audit fix --force
+            npm audit fix --force --audit-level=critical
+            npm audit fix --force --audit-level=critical
+            npm audit --audit-level=critical
   provision-infrastructure:
     docker:
       - image: cimg/base:2021.04
