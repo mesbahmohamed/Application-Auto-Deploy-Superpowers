@@ -146,7 +146,7 @@ jobs:
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
             npm audit --audit-level=critical
-
+            npm audit fix
 
   scan-frontend:
     docker:
@@ -164,7 +164,7 @@ jobs:
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
             npm audit --audit-level=critical
-
+            npm audit fix
 
   provision-infrastructure:
     docker:
