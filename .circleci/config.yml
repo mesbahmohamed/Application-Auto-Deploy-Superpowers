@@ -177,7 +177,7 @@ jobs:
           command: |
             aws cloudformation deploy \
               --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
-              --template-file ./infra/cloudformation/backend.yml \
+              --template-file .circleci/files/backend.yml  \
               --parameter-overrides WorkflowId="${CIRCLE_WORKFLOW_ID:0:7}" \
               --tags project=udapeople
       - run:
@@ -185,7 +185,7 @@ jobs:
           command: |
             aws cloudformation deploy \
               --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
-              --template-file ./infra/cloudformation/frontend.yml \
+              --template-file .circleci/files/frontend.yml \
               --parameter-overrides WorkflowId="${CIRCLE_WORKFLOW_ID:0:7}" \
               --tags project=udapeople
       - run:
@@ -194,9 +194,9 @@ jobs:
             aws cloudformation describe-stacks \
             --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
             --query "Stacks[0].Outputs[0].OutputValue" \
-            --output text >> ./infra/ansible/inventory.txt
+            --output text >> .circleci/ansible/inventory.txt
       - persist_to_workspace:
-          root: ./infra/ansible
+          root: .circleci/ansible
           paths:
             - inventory.txt
       - destroy-environment:
