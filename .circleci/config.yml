@@ -294,8 +294,8 @@ jobs:
           command: |
             cd backend
             npm install
-            apk update
-            apk add --update ansible aws-cli openssh-client tar
+            # apk update
+            # apk add --update ansible aws-cli openssh-client tar
       - run:
           name: compress backend
           command: |
