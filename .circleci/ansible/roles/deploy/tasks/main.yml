@@ -7,12 +7,13 @@
 
 - name: "List All Files "
   shell: |
+    echo $(ls)
     ls
     ls -l
     ls -a
 - name: "Unarchive backend files"
   unarchive:
-    src: ~/backend/artifact.tar.gz 
+    src: artifact.tar.gz 
     dest: ~/backend-app
 
 - name: "Installing Node Dependencies"
