@@ -125,9 +125,9 @@ jobs:
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-builder
-      - failure
-      - success
-      - deploy
+      # - failure
+      # - success
+      # - deploy
 
   
   build_backend:
@@ -146,9 +146,9 @@ jobs:
       - save_cache:
           paths: [backend/node_modules]
           key: backend-builder   
-      - failure
-      - success
-      - deploy
+      # - failure
+      # - success
+      # - deploy
 
   test-frontend:
     docker:
@@ -163,9 +163,9 @@ jobs:
             cd frontend
             npm install
             npm run test 
-      - failure
-      - success
-      - deploy
+      # - failure
+      # - success
+      # - deploy
 
   test-backend:
     docker:
@@ -180,9 +180,9 @@ jobs:
             cd backend
             npm install
             npm run test 
-      - failure
-      - success
-      - deploy
+      # - failure
+      # - success
+      # - deploy
 
   scan-frontend:
     docker:
@@ -198,9 +198,9 @@ jobs:
             npm install
             npm audit fix --force --audit-level=critical
             npm audit --audit-level=critical
-      - failure
-      - success
-      - deploy
+      # - failure
+      # - success
+      # - deploy
 
   scan-backend:
     docker:
@@ -217,9 +217,9 @@ jobs:
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
             npm audit --audit-level=critical
-      - failure
-      - success
-      - deploy 
+      # - failure
+      # - success
+      # - deploy 
 
   deploy-infrastructure:
     docker:
@@ -258,9 +258,9 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
-      - failure
-      - success
-      - deploy
+      # - failure
+      # - success
+      # - deploy
 
   configure-infrastructure:
     docker:
@@ -281,9 +281,9 @@ jobs:
 
             ansible-playbook -i inventory.txt configure-server.yml
       - destroy-environment
-      - failure
-      - success
-      - deploy
+      # - failure
+      # - success
+      # - deploy
 
   run-migrations:
     docker:
@@ -312,9 +312,9 @@ jobs:
             fi
       - destroy-environment
       - revert-migrations
-      - failure
-      - success
-      - deploy
+      # - failure
+      # - success
+      # - deploy
 
   deploy-frontend:
     docker:
@@ -349,9 +349,9 @@ jobs:
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
       - destroy-environment
       - revert-migrations
-      - failure
-      - success
-      - deploy
+      # - failure
+      # - success
+      # - deploy
 
   deploy-backend:
     docker:
@@ -386,9 +386,9 @@ jobs:
             ansible-playbook -i inventory.txt deploy-backend.yml
       - destroy-environment
       - revert-migrations
-      - failure
-      - success
-      - deploy
+      # - failure
+      # - success
+      # - deploy
 
   smoke-test:
     docker:
@@ -427,9 +427,9 @@ jobs:
             fi
       - destroy-environment
       - revert-migrations
-      - failure
-      - success
-      - deploy
+      # - failure
+      # - success
+      # - deploy
 
   cloudfront-update:
     docker:
@@ -463,9 +463,9 @@ jobs:
             echo Current Workflow Id: "${CIRCLE_WORKFLOW_ID:0:7}"
       - destroy-environment
       - revert-migrations 
-      - failure
-      - success
-      - deploy
+      # - failure
+      # - success
+      # - deploy
 
   cleanup:
     docker:
@@ -497,9 +497,9 @@ jobs:
               echo "This features release is the latest and will not be deleted"
             fi
 
-      - failure
-      - success
-      - deploy
+      # - failure
+      # - success
+      # - deploy
 
 
 workflows:
