@@ -65,7 +65,7 @@ commands:
 jobs:
   install-backend-dependencies:
     docker:
-      - image: node:13-alpine
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - run:
@@ -78,7 +78,7 @@ jobs:
 
   install-frontend-dependencies:
     docker:
-      - image: node:13-alpine
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - run:
@@ -91,7 +91,7 @@ jobs:
 
   build-frontend:
     docker:
-      - image: node:13-alpine
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - restore_cache:
@@ -107,7 +107,7 @@ jobs:
 
   build-backend:
     docker:
-      - image: node:13-alpine
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - restore_cache:
@@ -121,7 +121,7 @@ jobs:
 
   test-frontend:
     docker:
-      - image: node:13-alpine
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - restore_cache:
@@ -135,7 +135,7 @@ jobs:
                 
   test-backend:
     docker:
-      - image: node:13-alpine
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - restore_cache:
@@ -149,7 +149,7 @@ jobs:
 
   scan-frontend:
     docker:
-      - image: node:13-alpine
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - restore_cache:
