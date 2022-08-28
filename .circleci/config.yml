@@ -103,7 +103,10 @@ jobs:
             pwd
             ls -la
             npm i
+            npm audit fix --audit-level=critical
             npm run build
+            npm audit fix --audit-level=critical
+
 
   build-backend:
     docker:
@@ -118,6 +121,8 @@ jobs:
             cd backend
             npm i
             npm run build
+            npm audit fix
+            npm audit fix
 
   test-frontend:
     docker:
@@ -131,7 +136,9 @@ jobs:
           command: |
             cd frontend
             npm i
+            npm audit fix --audit-level=critical
             npm run test
+            npm audit fix
                 
   test-backend:
     docker:
@@ -145,6 +152,7 @@ jobs:
           command: |
             cd backend
             npm i
+            npm audit fix
             npm run test
 
   scan-frontend:
