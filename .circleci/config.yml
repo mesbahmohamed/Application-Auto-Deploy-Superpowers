@@ -230,7 +230,7 @@ jobs:
       - image: cimg/base:2022.04
     steps:
       - checkout
-      - install_awscli
+      - install_aws_cli
       - install_ansible
       - add_ssh_keys:
           fingerprints: [ "be:60:c7:2b:6b:6a:19:82:62:8c:b9:36:59:7f:2e:63" ]
