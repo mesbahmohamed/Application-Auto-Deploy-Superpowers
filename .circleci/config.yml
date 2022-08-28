@@ -67,6 +67,8 @@ jobs:
             npm install
             npm audit fix
             npm audit fix --force
+            npm audit fix --force --audit-level=critical
+
       - save_cache:
           key: backend-build
           paths:
@@ -87,6 +89,8 @@ jobs:
             npm install
             npm audit fix
             npm audit fix --force
+            npm audit fix --force --audit-level=critical
+
       - save_cache:
           key: frontend-build
           paths:
