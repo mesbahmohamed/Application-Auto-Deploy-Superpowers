@@ -294,13 +294,13 @@ jobs:
       - run:
           name: compress backend
           command: |
-            tar -C /tmp/artifacts/backend -czvf artifact.tar.gz .
+            tar -C backend -czvf artifact.tar.gz .
       - run:
           name: Deploy backend
           command: |
             cd .circleci/ansible
             export ANSIBLE_HOST_KEY_CHECKING=False
-            ansible-playbook -i /tmp/artifacts/inventory.txt deploy-backend.yml
+            ansible-playbook -i inventory.txt deploy-backend.yml
  
   # deploy-backend:
   #   docker:
