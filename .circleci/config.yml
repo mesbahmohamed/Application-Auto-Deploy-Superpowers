@@ -29,6 +29,7 @@ commands:
           name: Destroying environment
           when: on_fail
           command: |
+            aws configure set aws_session_token ${AWS_SESSION_TOKEN}
             aws cloudformation delete-stack \
               --stack-name "udapeople-frontend-<< parameters.workflow_id >>"
             aws cloudformation delete-stack \
@@ -175,6 +176,7 @@ jobs:
       - run:
           name: Provisioning back-end infrastructure
           command: |
+            echo "CIRCLE_WORKFLOW_ID"
             aws configure set aws_session_token ${AWS_SESSION_TOKEN}
             aws cloudformation deploy \
               --template-file .circleci/files/backend.yml \
@@ -184,6 +186,7 @@ jobs:
       - run:
           name: Provisioning front-end infrastructure
           command: |
+            echo "CIRCLE_WORKFLOW_ID"
             aws configure set aws_session_token ${AWS_SESSION_TOKEN}
             aws cloudformation deploy \
               --template-file .circleci/files/frontend.yml \
