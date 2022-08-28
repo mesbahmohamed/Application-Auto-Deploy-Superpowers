@@ -181,8 +181,8 @@ jobs:
             aws cloudformation deploy \
               --template-file .circleci/files/backend.yml \
               --tags project=udapeople \
-              --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_JOB_ID:0:7}" \
-              --parameter-overrides ID="${CIRCLE_WORKFLOW_JOB_ID:0:7}"                  
+              --stack-name "udapeople-backend" \
+              --parameter-overrides ID="Hamada"                  
       - run:
           name: Provisioning front-end infrastructure
           command: |
