@@ -87,6 +87,9 @@ jobs:
           command: |
             cd frontend 
             npm install
+            npm audit fix --force --audit-level=critical
+            npm audit fix --force --audit-level=critical
+            npm audit --audit-level=critical
             npm run build
       - save_cache:
           paths: [frontend/node_modules]
@@ -104,6 +107,9 @@ jobs:
           command: |
              cd backend
              npm install
+             npm audit fix --force --audit-level=critical
+             npm audit fix --force --audit-level=critical
+             npm audit --audit-level=critical
              npm run build
       - save_cache:
           paths: [backend/node_modules]
@@ -121,6 +127,9 @@ jobs:
           command: |
              cd frontend
              npm install
+             npm audit fix --force --audit-level=critical
+             npm audit fix --force --audit-level=critical
+             npm audit --audit-level=critical
              npm test
       # - notify_on_failure
                 
@@ -136,6 +145,9 @@ jobs:
           command: |
              cd backend
              npm install
+             npm audit fix --force --audit-level=critical
+             npm audit fix --force --audit-level=critical
+             npm audit --audit-level=critical
              npm test
       - save_cache:
           paths: [backend/node_modules]
@@ -242,6 +254,9 @@ jobs:
           command: |
             cd backend 
             npm install
+            npm audit fix --force --audit-level=critical
+            npm audit fix --force --audit-level=critical
+            npm audit --audit-level=critical
             npm run migrations >> migrations_dump.txt
             cat migrations_dump.txt
       - run:
@@ -271,6 +286,9 @@ jobs:
           command: |
             cd frontend
             npm install
+            npm audit fix --force --audit-level=critical
+            npm audit fix --force --audit-level=critical
+            npm audit --audit-level=critical
       - run:
           name: Get backend url
           command: |
