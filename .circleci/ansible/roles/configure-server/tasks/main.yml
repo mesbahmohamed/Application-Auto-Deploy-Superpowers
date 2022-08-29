@@ -27,11 +27,8 @@
     become: yes
     shell: n 13.8.0
 
-  - name: "install pm2"
-    become: yes
+  - name: "Install PM2 Globally"
     npm:
       name: pm2
       global: yes
       production: yes
-      state: present
-      udpate_cache: yes
