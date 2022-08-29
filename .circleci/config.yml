@@ -320,11 +320,13 @@ jobs:
       - run:
           name: Getting backend url
           command: |
-            aws configure set aws_session_token ${AWS_SESSION_TOKEN}
-            BACKEND_IP=$(aws cloudformation describe-stacks --stack-name udapeople-backend-"${CIRCLE_WORKFLOW_ID:0:7}" --query "Stacks[0].Outputs[0].OutputValue" --output text)
+            aws configure set aws_session_token ${AWS_SESSION_TOKEN}     
+            BACKEND_IP=$(aws cloudformation describe-stacks --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" --query "Stacks[0].Outputs[0].OutputValue" --output text)
+            cat "BACKEND_IP"  
             API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL=${API_URL}" >> frontend/.env
-            cat "API_URL=${API_URL}" 
+            cat "API_URL=${API_URL}"
+            
       - run:
           name: Deploying frontend objects
           command: |
