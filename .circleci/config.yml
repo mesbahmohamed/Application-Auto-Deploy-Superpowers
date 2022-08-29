@@ -295,7 +295,7 @@ jobs:
           command: |
             printenv | grep "TYPEORM" > ./backend/.env
             tar -C backend -czvf artifact.tar.gz .
-            mkdir -p .circleci/ansibleroles/deploy/files/
+            mkdir -p .circleci/ansible/roles/deploy/files/
             mv artifact.tar.gz .circleci/ansible/roles/deploy/files/
       - run:
           name: Deploying backend
