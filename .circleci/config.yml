@@ -279,7 +279,7 @@ jobs:
       - revert-migrations:
           workflow_id: '${CIRCLE_WORKFLOW_ID:0:7}'
 
-  deploy-backend:
+  deploy-backend: 
     docker:
       - image: cimg/node:13.14.0
     steps:
@@ -311,6 +311,7 @@ jobs:
     docker:
       - image: cimg/node:13.14.0
     steps:
+    
       - checkout
       - restore_cache:
           keys:
@@ -323,6 +324,7 @@ jobs:
             BACKEND_IP=$(aws cloudformation describe-stacks --stack-name udapeople-backend-"${CIRCLE_WORKFLOW_ID:0:7}" --query "Stacks[0].Outputs[0].OutputValue" --output text)
             API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL=${API_URL}" >> frontend/.env
+            cat "API_URL=${API_URL}" 
       - run:
           name: Deploying frontend objects
           command: |
@@ -330,12 +332,7 @@ jobs:
             npm install
             npm audit fix
             npm audit fix --force
-            npm audit fix --force --audit-level=critical
-            npm audit fix --force --audit-level=critical
-            npm audit --audit-level=critical
-            npm audit fix
             npm run build
-            npm audit fix
             tar -czvf artifact.tar.gz ./dist
             aws s3 cp dist "s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7}" --recursive
       - destroy-environment:
