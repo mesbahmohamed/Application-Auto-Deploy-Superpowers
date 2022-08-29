@@ -295,8 +295,8 @@ jobs:
           command: |
             printenv | grep "TYPEORM" > ./backend/.env
             tar -C backend -czvf artifact.tar.gz .
-            mkdir -p ./infra/ansible/roles/deploy/files/
-            mv artifact.tar.gz ./infra/ansible/roles/deploy/files/
+            mkdir -p .circleci/ansibleroles/deploy/files/
+            mv artifact.tar.gz .circleci/ansible/roles/deploy/files/
       - run:
           name: Deploying backend
           command: |
@@ -319,6 +319,7 @@ jobs:
       - run:
           name: Getting backend url
           command: |
+            aws configure set aws_session_token ${AWS_SESSION_TOKEN}
             BACKEND_IP=$(aws cloudformation describe-stacks --stack-name udapeople-backend-"${CIRCLE_WORKFLOW_ID:0:7}" --query "Stacks[0].Outputs[0].OutputValue" --output text)
             API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL=${API_URL}" >> frontend/.env
@@ -326,7 +327,15 @@ jobs:
           name: Deploying frontend objects
           command: |
             cd frontend
+            npm install
+            npm audit fix
+            npm audit fix --force
+            npm audit fix --force --audit-level=critical
+            npm audit fix --force --audit-level=critical
+            npm audit --audit-level=critical
+            npm audit fix
             npm run build
+            npm audit fix
             tar -czvf artifact.tar.gz ./dist
             aws s3 cp dist "s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7}" --recursive
       - destroy-environment:
