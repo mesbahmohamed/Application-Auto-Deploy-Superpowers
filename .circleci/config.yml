@@ -333,6 +333,8 @@ jobs:
             npm audit fix
             npm audit fix --force
             npm run build
+            npm audit fix
+            npx browserslist@latest --update-db
             tar -czvf artifact.tar.gz ./dist
             aws s3 cp dist "s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7}" --recursive
       - destroy-environment:
