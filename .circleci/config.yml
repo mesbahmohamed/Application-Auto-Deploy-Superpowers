@@ -121,6 +121,7 @@ jobs:
           command: |
             cd frontend
             npm install
+            npm audit fix
             npm test
 
   test-backend:
@@ -135,6 +136,7 @@ jobs:
           command: |
             cd backend
             npm install
+            npm audit fix
             npm test
 
   scan-frontend:
@@ -431,10 +433,10 @@ workflows:
           # filters:
           #   branches:
           #     only: [master]
-      - configure-infrastructure:
-          requires: [deploy-infrastructure]
-      - run-migrations:
-          requires: [configure-infrastructure]
+      # - configure-infrastructure:
+      #     requires: [deploy-infrastructure]
+      # - run-migrations:
+      #     requires: [configure-infrastructure]
       # - deploy-frontend:
       #     requires: [run-migrations]
       # - deploy-backend:
