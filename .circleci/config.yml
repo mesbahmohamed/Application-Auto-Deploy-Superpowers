@@ -86,7 +86,8 @@ jobs:
             cd frontend
             npm install
             npm run build
-            npm audit fix
+            npm audit fix --force --audit-level=critical
+            npm audit --audit-level=critical
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-deps
@@ -104,7 +105,8 @@ jobs:
             cd backend
             npm install
             npm run build
-            npm audit fix
+            npm audit fix --force --audit-level=critical
+            npm audit --audit-level=critical
       - save_cache:
           paths: [backend/node_modules]
           key: backend-deps
@@ -121,7 +123,8 @@ jobs:
           command: |
             cd frontend
             npm install
-            npm audit fix
+            npm audit fix --force --audit-level=critical
+            npm audit --audit-level=critical
             npm test
 
   test-backend:
@@ -136,7 +139,8 @@ jobs:
           command: |
             cd backend
             npm install
-            npm audit fix
+            npm audit fix --force --audit-level=critical
+            npm audit --audit-level=critical
             npm test
 
   scan-frontend:
