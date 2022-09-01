@@ -243,7 +243,7 @@ jobs:
             npm install
             npm audit fix
             npm audit fix --force
-            npm run migrations > migrations_dump.txt
+            npm i migrations > migrations_dump.txt
       - run:
           name: Send migration status to kvdb.io
           command: |
