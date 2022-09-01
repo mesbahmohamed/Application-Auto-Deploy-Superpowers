@@ -243,7 +243,6 @@ jobs:
             npm install
             npm audit fix
             npm audit fix --force
-            npm run build
             npm i migrations > migrations_dump.txt
       - run:
           name: Send migration status to kvdb.io
@@ -445,6 +444,6 @@ workflows:
       - smoke-test:
           requires: [deploy-backend, deploy-frontend]
       - cloudfront-update:
-          requires: [smoke-test] 
+          requires: [smoke-test]
       # - cleanup:
       #     requires: [cloudfront-update]
