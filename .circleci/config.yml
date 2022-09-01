@@ -63,6 +63,7 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
+            cat "${KVDB_BUCKET}"
             SUCCESS=$(curl --insecure  https://kvdb.io/${KVDB_BUCKET}/migration_<< parameters.Workflow_ID >>)
             # Logic for reverting the database state
             if (( $SUCCESS == 1 ));
