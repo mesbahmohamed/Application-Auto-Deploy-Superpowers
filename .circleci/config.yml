@@ -241,9 +241,8 @@ jobs:
           command: |
             cd backend
             npm install
-            # npm audit fix
-            # npm audit fix --force
-            # npm audit fix
+            npm audit fix --force --audit-level=critical
+            npm audit --audit-level=critical
             npm i migrations > migrations_dump.txt
             cat migrations_dump.txt
       - run:
@@ -251,6 +250,7 @@ jobs:
           command: |
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
+              cat "Hello All"
               curl https://kvdb.io/${KVDB_BUCKET}/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi
       - destroy-environment
